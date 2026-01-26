@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zen LM Logo</title>
+  <meta name="description" content="Zen LM official logos and marks">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --fg: #fafafa;
+      --muted: #71717a;
+      --accent: #6366f1;
+      --border: #27272a;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .container { max-width: 800px; text-align: center; }
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+    .tagline {
+      font-size: 1.25rem;
+      color: var(--muted);
+      margin-bottom: 3rem;
+    }
+    .logo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    .logo-card {
+      background: var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 150px;
+    }
+    .logo-card.light { background: #fafafa; }
+    .logo-placeholder {
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: -0.05em;
+    }
+    .formats {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .format {
+      padding: 0.5rem 1rem;
+      background: var(--border);
+      border-radius: 6px;
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+    .links { display: flex; gap: 1rem; justify-content: center; }
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      padding: 0.75rem 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    a:hover {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+    }
+    .footer {
+      position: fixed;
+      bottom: 2rem;
+      color: var(--muted);
+      font-size: 0.875rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Zen LM Logo</h1>
+    <p class="tagline">Official logos and marks</p>
+
+    <div class="logo-grid">
+      <div class="logo-card">
+        <span class="logo-placeholder" style="color: var(--fg);">禅</span>
+      </div>
+      <div class="logo-card light">
+        <span class="logo-placeholder" style="color: #0a0a0a;">禅</span>
+      </div>
+    </div>
+
+    <div class="formats">
+      <span class="format">SVG</span>
+      <span class="format">PNG</span>
+      <span class="format">ICO</span>
+      <span class="format">PDF</span>
+    </div>
+
+    <div class="links">
+      <a href="https://github.com/zenlm/logo">Download All</a>
+      <a href="https://github.com/zenlm/brand">Brand Guidelines</a>
+    </div>
+  </div>
+  <div class="footer">&copy; 2025 Zen LM. All rights reserved.</div>
+</body>
+</html>
