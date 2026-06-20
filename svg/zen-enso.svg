@@ -1,0 +1,12 @@
+<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Zen ensō">
+  <!-- Canonical Zen ensō — path + draw animation from zenlm/docs (github.com/zenlm).
+       Solid stroke so it inverts per theme via CSS (white→gray gradient on the dark zen site). -->
+  <style>
+    .enso-stroke{fill:none;stroke-dasharray:1;stroke-dashoffset:1;animation:enso-draw 1.9s cubic-bezier(.22,1,.36,1) forwards}
+    @keyframes enso-draw{0%{stroke-dashoffset:1;opacity:.2}20%{opacity:1}100%{stroke-dashoffset:0}}
+    @media (prefers-reduced-motion:reduce){.enso-stroke{stroke-dashoffset:0;animation:none}}
+  </style>
+  <path class="enso-stroke" pathLength="1"
+        d="M58 13 C38 9 17 22 13 44 C9 68 26 89 50 90 C74 91 91 74 89 50 C88 41 87 35 84 30"
+        stroke="#000000" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
