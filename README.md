@@ -1,3 +1,5 @@
+<p align="center"><img src=".github/hero.svg" alt="logo" width="880"></p>
+
 # Logo Assets
 
 Official logos and marks.
