@@ -1,0 +1,14 @@
+node_modules/
+*.log
+.DS_Store
+*.tsbuildinfo
+
+# ── Logo assets ──────────────────────────────────────────────────────────
+# dist is NOT ignored: the rendered image assets (png/ico/svg + showcase) are
+# tracked for easy reference and ship in the npm package (CI regenerates on
+# publish). Only the compiled JS/maps are ignored (regenerated, churny).
+dist/**/*.js
+dist/**/*.d.ts
+dist/**/*.map
+dist/*.js
+dist/*.d.ts
