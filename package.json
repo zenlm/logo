@@ -1,6 +1,6 @@
 {
   "name": "@zenlm/logo",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Official Zen ensō logo — animated, brand-neutral SVG",
   "type": "module",
   "main": "dist/index.js",
@@ -29,7 +29,7 @@
     }
   },
   "scripts": {
-    "build": "npm run clean && npm run compile && npm run build:cli",
+    "build": "npm run clean && npm run compile && npm run build:cli && npm run generate",
     "build:cli": "tsc src/build.ts --outDir dist --module esnext --target es2020 --moduleResolution node --esModuleInterop --skipLibCheck",
     "compile": "tsc",
     "clean": "rm -rf dist",
