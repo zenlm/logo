@@ -1,9 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-label="logo">
-<rect width="1280" height="640" fill="#0A0A0A"/>
-<svg x="96" y="215" width="210" height="210" viewBox="5 5 90 90"><path d="M66.22 83.26 A37 37 0 1 1 85.57 60.20" fill="none" stroke="#fff" stroke-width="11" stroke-linecap="round"/></svg>
-<text x="378" y="276" font-family="Inter,system-ui,-apple-system,sans-serif" font-size="78" font-weight="800" letter-spacing="-2" fill="#ffffff">logo</text>
-<text x="378" y="322" font-family="Inter,system-ui,sans-serif" font-size="30" fill="#ffffff" opacity=".66">Zen LM logos and marks</text>
-<rect x="378" y="338" width="806" height="3" rx="1.5" fill="#ffffff" opacity=".9"/>
-<text x="378" y="390" font-family="Inter,system-ui,sans-serif" font-size="24" font-weight="600" fill="#ffffff" opacity=".5">github.com/zenlm</text>
-<text x="1184" y="390" text-anchor="end" font-family="Inter,system-ui,sans-serif" font-size="24" font-weight="600" fill="#ffffff" opacity=".5">zenlm.org</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-label="Zen brand assets">
+  <rect width="1280" height="640" fill="#0A0A0A"/>
+  <svg x="120" y="200" width="240" height="240" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <path d="M66.22 83.26 A37 37 0 1 1 85.57 60.20" fill="none" stroke="#ffffff" stroke-width="11" stroke-linecap="round"/>
+  </svg>
+  <text x="440" y="316" font-family="Inter,system-ui,-apple-system,sans-serif" font-size="94" font-weight="800" letter-spacing="-3" fill="#ffffff">Zen</text>
+  <text x="443" y="366" font-family="Inter,system-ui,sans-serif" font-size="27" fill="#ffffff" opacity=".62">Official brand marks — SVG, PNG, ICO, favicons &amp; app icons.</text>
+  <rect x="443" y="390" width="710" height="2" rx="1" fill="#ffffff" opacity=".85"/>
+  <text x="443" y="440" font-family="Inter,system-ui,sans-serif" font-size="23" font-weight="600" fill="#ffffff" opacity=".45">github.com/zenlm</text>
+  <text x="1160" y="440" text-anchor="end" font-family="Inter,system-ui,sans-serif" font-size="23" font-weight="600" fill="#ffffff" opacity=".45">zenlm.org</text>
 </svg>

@@ -142,6 +142,51 @@ async function writeIco(pngPaths: string[], outputPath: string): Promise<void> {
     console.log(`✓ ${path.relative(process.cwd(), outputPath)} (${dims})`);
 }
 
+// Brand identity for the README hero — read from package.json "brand". Falls
+// back sensibly so a repo without the block still renders (never the old
+// "logo" placeholder).
+interface Brand { name: string; tagline: string; github: string; domain: string; }
+function readBrand(): Brand {
+    let pkg: any = {};
+    try { pkg = JSON.parse(fs.readFileSync('package.json', 'utf8')); } catch { /* defaults */ }
+    const b = pkg.brand || {};
+    const scope = (pkg.name || '').replace(/^@/, '').split('/')[0]; // e.g. hanzo
+    return {
+        name: b.name || (scope ? scope.charAt(0).toUpperCase() + scope.slice(1) : 'Brand'),
+        tagline: b.tagline || 'Official brand marks — SVG, PNG, ICO, favicons & app icons.',
+        github: b.github || 'hanzoai',
+        domain: b.domain || 'hanzo.ai',
+    };
+}
+
+// generateHero composes the README hero card (1280×640): the brand's own white
+// mark + the real brand NAME (not the "logo" placeholder the template shipped)
+// + a full tagline + github/domain footer. Written to .github/hero.svg, which
+// the README embeds. One template, every brand — driven by readBrand().
+function generateHero(whiteMark: string): void {
+    const brand = readBrand();
+    const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    // Embed the brand mark as a nested, positioned SVG. Strip any existing
+    // width/height on the mark's root tag first (some brand marks set them,
+    // which collide with the x/y/width/height we inject and corrupt the SVG);
+    // the viewBox is preserved so scaling stays correct.
+    const cleaned = whiteMark.replace(/^<svg\b[^>]*>/, (tag) => tag.replace(/\s(?:width|height)="[^"]*"/g, ''));
+    const mark = cleaned.replace(/^<svg /, '<svg x="120" y="200" width="240" height="240" ');
+    const hero = `<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-label="${esc(brand.name)} brand assets">
+  <rect width="1280" height="640" fill="#0A0A0A"/>
+  ${mark}
+  <text x="440" y="316" font-family="Inter,system-ui,-apple-system,sans-serif" font-size="94" font-weight="800" letter-spacing="-3" fill="#ffffff">${esc(brand.name)}</text>
+  <text x="443" y="366" font-family="Inter,system-ui,sans-serif" font-size="27" fill="#ffffff" opacity=".62">${esc(brand.tagline)}</text>
+  <rect x="443" y="390" width="710" height="2" rx="1" fill="#ffffff" opacity=".85"/>
+  <text x="443" y="440" font-family="Inter,system-ui,sans-serif" font-size="23" font-weight="600" fill="#ffffff" opacity=".45">github.com/${esc(brand.github)}</text>
+  <text x="1160" y="440" text-anchor="end" font-family="Inter,system-ui,sans-serif" font-size="23" font-weight="600" fill="#ffffff" opacity=".45">${esc(brand.domain)}</text>
+</svg>
+`;
+    fs.mkdirSync('.github', { recursive: true });
+    fs.writeFileSync('.github/hero.svg', hero);
+    console.log(`✓ .github/hero.svg (${brand.name})`);
+}
+
 async function buildAll(): Promise<void> {
     console.log('🎨 Hanzo Logo Builder\n');
 
@@ -161,12 +206,15 @@ async function buildAll(): Promise<void> {
 
     // Save SVG sources
     console.log('📁 SVG Sources:');
-    fs.writeFileSync('dist/hanzo-logo.svg', colorSVG);
-    fs.writeFileSync('dist/hanzo-logo-mono.svg', monoSVG);
-    fs.writeFileSync('dist/hanzo-logo-white.svg', whiteSVG);
-    fs.writeFileSync('dist/hanzo-logo-menubar.svg', menuBarSVG);
-    fs.writeFileSync('dist/hanzo-favicon.svg', faviconSVG);
+    fs.writeFileSync('dist/logo.svg', colorSVG);
+    fs.writeFileSync('dist/logo-mono.svg', monoSVG);
+    fs.writeFileSync('dist/logo-white.svg', whiteSVG);
+    fs.writeFileSync('dist/logo-menubar.svg', menuBarSVG);
+    fs.writeFileSync('dist/favicon.svg', faviconSVG);
     console.log('✓ Generated 5 SVG sources\n');
+
+    // README hero card (brand mark + real brand name), written to .github/.
+    generateHero(whiteSVG);
 
     // === STANDARD ICONS ===
     console.log('📁 Standard Icons (dist/icons/):');
@@ -418,27 +466,27 @@ function generateShowcase(): void {
         <div class="grid">
             <div class="icon-item">
                 <div class="icon-box dark" style="width:120px;height:120px;">
-                    <img src="hanzo-logo.svg" alt="Color Logo" style="width:100px;height:100px;">
+                    <img src="logo.svg" alt="Color Logo" style="width:100px;height:100px;">
                 </div>
-                <span class="label">hanzo-logo.svg</span>
+                <span class="label">logo.svg</span>
             </div>
             <div class="icon-item">
                 <div class="icon-box light" style="width:120px;height:120px;">
-                    <img src="hanzo-logo-mono.svg" alt="Mono Logo" style="width:100px;height:100px;">
+                    <img src="logo-mono.svg" alt="Mono Logo" style="width:100px;height:100px;">
                 </div>
-                <span class="label">hanzo-logo-mono.svg</span>
+                <span class="label">logo-mono.svg</span>
             </div>
             <div class="icon-item">
                 <div class="icon-box dark" style="width:120px;height:120px;">
-                    <img src="hanzo-logo-white.svg" alt="White Logo" style="width:100px;height:100px;">
+                    <img src="logo-white.svg" alt="White Logo" style="width:100px;height:100px;">
                 </div>
-                <span class="label">hanzo-logo-white.svg</span>
+                <span class="label">logo-white.svg</span>
             </div>
             <div class="icon-item">
                 <div class="icon-box" style="width:120px;height:120px;">
-                    <img src="hanzo-favicon.svg" alt="Favicon" style="width:100px;height:100px;">
+                    <img src="favicon.svg" alt="Favicon" style="width:100px;height:100px;">
                 </div>
-                <span class="label">hanzo-favicon.svg</span>
+                <span class="label">favicon.svg</span>
             </div>
         </div>
     </section>

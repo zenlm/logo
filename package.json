@@ -1,6 +1,6 @@
 {
   "name": "@zenlm/logo",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Official Zen ensō logo — animated, brand-neutral SVG",
   "type": "module",
   "main": "dist/index.js",
@@ -78,5 +78,11 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "brand": {
+    "name": "Zen",
+    "tagline": "Official brand marks — SVG, PNG, ICO, favicons & app icons.",
+    "github": "zenlm",
+    "domain": "zenlm.org"
   }
 }
