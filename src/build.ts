@@ -1,8 +1,11 @@
 #!/usr/bin/env node
 
 /**
- * Zen Logo Build Script
- * Generates all required icons for Zen ecosystem
+ * Logo Build Script
+ * Generates every brand icon, favicon, and social asset from the canonical
+ * mark. Brand identity (name, tagline, github, domain) is read from
+ * package.json "brand" — this file names no brand, so it is byte-identical
+ * across every logo package.
  */
 
 import * as fs from 'fs';
@@ -150,14 +153,18 @@ function readBrand(): Brand {
     let pkg: any = {};
     try { pkg = JSON.parse(fs.readFileSync('package.json', 'utf8')); } catch { /* defaults */ }
     const b = pkg.brand || {};
-    const scope = (pkg.name || '').replace(/^@/, '').split('/')[0]; // e.g. hanzo
+    const scope = (pkg.name || '').replace(/^@/, '').split('/')[0]; // package scope
     return {
         name: b.name || (scope ? scope.charAt(0).toUpperCase() + scope.slice(1) : 'Brand'),
         tagline: b.tagline || 'Official brand marks — SVG, PNG, ICO, favicons & app icons.',
-        github: b.github || 'hanzoai',
-        domain: b.domain || 'hanzo.ai',
+        github: b.github || scope,
+        domain: b.domain || '',
     };
 }
+
+// Read once at load — every display string below is driven by this, so the
+// file carries no brand name of its own.
+const BRAND = readBrand();
 
 // generateHero composes the README hero card (1280×640): the brand's own white
 // mark + the real brand NAME (not the "logo" placeholder the template shipped)
@@ -184,11 +191,14 @@ function generateHero(whiteMark: string): void {
 `;
     fs.mkdirSync('.github', { recursive: true });
     fs.writeFileSync('.github/hero.svg', hero);
-    console.log(`✓ .github/hero.svg (${brand.name})`);
+    // Also ship the hero inside dist/ so it resolves on the npm page via a CDN
+    // (jsdelivr) URL even for packages that aren't backed by a public git repo.
+    fs.writeFileSync('dist/hero.svg', hero);
+    console.log(`✓ .github/hero.svg + dist/hero.svg (${brand.name})`);
 }
 
 async function buildAll(): Promise<void> {
-    console.log('🎨 Hanzo Logo Builder\n');
+    console.log(`🎨 ${BRAND.name} Logo Builder\n`);
 
     const colorSVG = getColorSVG();
     const monoSVG = getMonoSVG();
@@ -354,7 +364,7 @@ function generateShowcase(): void {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hanzo Logo Assets Showcase</title>
+    <title>${BRAND.name} Logo Assets Showcase</title>
     <style>
         :root {
             --bg-dark: #111;
@@ -458,7 +468,7 @@ function generateShowcase(): void {
     </style>
 </head>
 <body>
-    <h1>🎨 Hanzo Logo Assets</h1>
+    <h1>🎨 ${BRAND.name} Logo Assets</h1>
     <p class="subtitle">Every brand mark, format, and size.</p>
 
     <section class="section">
@@ -595,14 +605,14 @@ function generateShowcase(): void {
                 <p style="margin-bottom:10px;font-size:14px;">Light Menu Bar</p>
                 <div class="menubar-demo">
                     <img src="menubar/menubar-16.png" alt="Menu bar icon" style="width:16px;height:16px;">
-                    <span style="font-size:13px;color:#333;">Hanzo</span>
+                    <span style="font-size:13px;color:#333;">${BRAND.name}</span>
                 </div>
             </div>
             <div>
                 <p style="margin-bottom:10px;font-size:14px;">Dark Menu Bar</p>
                 <div class="menubar-demo dark">
                     <img src="menubar/iconTemplate.png" alt="Menu bar icon" style="width:16px;height:16px;filter:invert(1);">
-                    <span style="font-size:13px;color:#fff;">Hanzo</span>
+                    <span style="font-size:13px;color:#fff;">${BRAND.name}</span>
                 </div>
             </div>
         </div>
