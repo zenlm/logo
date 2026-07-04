@@ -2,7 +2,7 @@
 
 # Zen — Brand & Logo Assets
 
-Official logos and marks.
+Official Zen brand marks in every format and size — SVG, PNG, multi-resolution ICO, favicons, app/dock/tray icons, and social cards. Installable via `@zenlm/logo`, browsable in `dist/`.
 
 ## Formats
 
