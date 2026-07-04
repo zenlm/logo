@@ -459,7 +459,7 @@ function generateShowcase(): void {
 </head>
 <body>
     <h1>🎨 Hanzo Logo Assets</h1>
-    <p class="subtitle">Generated: ${new Date().toISOString()}</p>
+    <p class="subtitle">Every brand mark, format, and size.</p>
 
     <section class="section">
         <h2>📁 SVG Sources</h2>
@@ -646,7 +646,6 @@ function generateShowcase(): void {
         </div>
     </section>
 
-    <div class="timestamp">Last generated: ${new Date().toLocaleString()}</div>
 </body>
 </html>`;
 
