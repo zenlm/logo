@@ -1,6 +1,6 @@
 <p align="center"><img src=".github/hero.svg" alt="logo" width="880"></p>
 
-# Logo Assets
+# Zen — Brand & Logo Assets
 
 Official logos and marks.
 
