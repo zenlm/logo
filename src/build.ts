@@ -13,6 +13,9 @@ import * as path from 'path';
 import { fileURLToPath } from 'url';
 import sharp from 'sharp';
 import { getColorSVG, getMonoSVG, getMenuBarSVG, getFaviconSVG, getWhiteSVG } from './logos.js';
+// Namespace view of the same module — lets the build pick up OPTIONAL marks
+// (e.g. a wordmark) that only some brands define, without a hard import.
+import * as marks from './logos.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -222,6 +225,25 @@ async function buildAll(): Promise<void> {
     fs.writeFileSync('dist/logo-menubar.svg', menuBarSVG);
     fs.writeFileSync('dist/favicon.svg', faviconSVG);
     console.log('✓ Generated 5 SVG sources\n');
+
+    // Optional wordmark — brands whose logos.ts exports getWordmarkSVG (a wide
+    // logotype, distinct from the square icon mark) ship it as SVG + aspect-
+    // preserving PNGs. Brands without one skip this entirely: one build, still
+    // brand-neutral, no per-brand wiring here.
+    const wordmark      = (marks as any).getWordmarkSVG?.() as string | undefined;
+    const wordmarkWhite = (marks as any).getWordmarkWhite?.() as string | undefined;
+    const wordmarkMono  = (marks as any).getWordmarkMono?.() as string | undefined;
+    if (wordmark) {
+        fs.writeFileSync('dist/wordmark.svg', wordmark);
+        if (wordmarkWhite) fs.writeFileSync('dist/wordmark-white.svg', wordmarkWhite);
+        if (wordmarkMono)  fs.writeFileSync('dist/wordmark-mono.svg', wordmarkMono);
+        fs.mkdirSync('dist/wordmark', { recursive: true });
+        for (const h of [128, 256, 512]) {
+            // height-only resize preserves the wide aspect ratio (no distortion)
+            await sharp(Buffer.from(wordmark)).resize({ height: h }).png().toFile(`dist/wordmark/wordmark-${h}.png`);
+            console.log(`✓ dist/wordmark/wordmark-${h}.png`);
+        }
+    }
 
     // README hero card (brand mark + real brand name), written to .github/.
     generateHero(whiteSVG);
